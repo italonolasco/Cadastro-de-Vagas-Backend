@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const Admin = require('../models/Admin');
-const Candidate = require('../models/Candidate')
+const Candidate = require('../models/Candidate');
 
 module.exports = {  
     async indexCandidates(req, res) {

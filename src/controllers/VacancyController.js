@@ -3,6 +3,12 @@ const Admin = require('../models/Admin');
 
 module.exports = {
     async index(req, res) {
+        const vacancies = await Vacancy.findAll()
+
+        return res.json(vacancies)
+    },
+    
+    async indexAdmin(req, res) {
         const { id } = req.user;
 
         const admin = await Admin.findByPk(id, {

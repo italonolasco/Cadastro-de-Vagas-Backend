@@ -3,36 +3,40 @@ const express = require('express');
 const CandidateController = require('./controllers/CandidateController')
 const AdminController = require('./controllers/AdminController')
 const VacancyController = require('./controllers/VacancyController')
+const CandidaciesController = require('./controllers/CandidaciesController')
+
 const Auth = require('./auth');
 const Passport = require('./config/passport')
 
 const routes = express.Router();
 
 //Rotas para ações de Signin
-//routes.post('/signup/candidate', CandidateController.store);
-//routes.post('/signup/admin', AdminController.store);
-routes.post('/signin/candidate', Auth.signinCandidate);
-routes.post('/signin/admin', Auth.signinAdmin);
-routes.post('/validateToken', Auth.validateToken)
-
-//Rotas para ações de Vagas
+routes.post('/signin/candidate', Auth.signinCandidate); //Realiza login como candidato
+routes.post('/signin/admin', Auth.signinAdmin); //Realiza login como administrador
+routes.post('/validateToken', Auth.validateToken) //Valida Token
 
 //Rotas para ações de Candidato
-
-routes.post('/candidates', CandidateController.store);
-routes.put('/candidates', Passport.authenticateCandidate(), CandidateController.update);
-routes.delete('/candidates', Passport.authenticateCandidate(), CandidateController.delete);
+routes.post('/candidates', CandidateController.store); //Cadastra candidato
+routes.put('/candidates', Passport.authenticateCandidate(), CandidateController.update); //Edita seu cadastro
+routes.delete('/candidates', Passport.authenticateCandidate(), CandidateController.delete); //Apaga seu cadastro
 
 //Rotas para ações de Administrador
-routes.post('/admins', AdminController.store);
-routes.put('/admins', Passport.authenticateAdmin(), AdminController.update);
-routes.delete('/admins', Passport.authenticateAdmin(), AdminController.delete);
-routes.get('/admins/candidates', Passport.authenticateAdmin(), AdminController.indexCandidates);
+routes.post('/admins', AdminController.store); //Cadastra Administrador
+routes.put('/admins', Passport.authenticateAdmin(), AdminController.update); //Edita cadastro
+routes.delete('/admins', Passport.authenticateAdmin(), AdminController.delete); //Apaga cadastro
+routes.get('/admins/candidates', Passport.authenticateAdmin(), AdminController.indexCandidates); //Lista Candidatos
 
 //Rotas para ações de Vagas
-routes.post('/admins/vacancies', Passport.authenticateAdmin(), VacancyController.store)
-routes.delete('/admins/vacancies/:vacancy_id', Passport.authenticateAdmin(), VacancyController.delete)
-routes.put('/admins/vacancies/:vacancy_id', Passport.authenticateAdmin(), VacancyController.update)
-routes.get('/admins/vacancies', Passport.authenticateAdmin(), VacancyController.index)
+routes.post('/admins/vacancies', Passport.authenticateAdmin(), VacancyController.store) //Admin cadastra vaga
+routes.put('/admins/vacancies/:vacancy_id', Passport.authenticateAdmin(), VacancyController.update) //Admin edita vaga
+routes.delete('/admins/vacancies/:vacancy_id', Passport.authenticateAdmin(), VacancyController.delete) //Admin deleta vaga
+routes.get('/admins/vacancies', Passport.authenticateAdmin(), VacancyController.indexAdmin) //Admin vê as vagas criadas por si
+routes.get('/vacancies', VacancyController.index) //Vagas disponíveis
+
+//Rotas para candidatura
+routes.post('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(), CandidaciesController.store); //Candidato cadastra candidatura
+routes.delete('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(), CandidaciesController.delete); //Candidato deleta candidatura
+routes.get('/candidates/vacancies', Passport.authenticateCandidate(), CandidaciesController.index);
+
 
 module.exports = routes;
