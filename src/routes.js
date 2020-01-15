@@ -3,7 +3,7 @@ const express = require('express');
 const CandidateController = require('./controllers/CandidateController')
 const AdminController = require('./controllers/AdminController')
 const VacancyController = require('./controllers/VacancyController')
-const CandidaciesController = require('./controllers/CandidaciesController')
+const CandidacyController = require('./controllers/CandidacyController')
 
 const Auth = require('./auth');
 const Passport = require('./config/passport')
@@ -34,9 +34,10 @@ routes.get('/admins/vacancies', Passport.authenticateAdmin(), VacancyController.
 routes.get('/vacancies', VacancyController.index) //Vagas disponíveis
 
 //Rotas para candidatura
-routes.post('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(), CandidaciesController.store); //Candidato cadastra candidatura
-routes.delete('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(), CandidaciesController.delete); //Candidato deleta candidatura
-routes.get('/candidates/vacancies', Passport.authenticateCandidate(), CandidaciesController.index);
+routes.post('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(), CandidacyController.store); //Candidato cadastra candidatura
+routes.delete('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(), CandidacyController.delete); //Candidato deleta candidatura
+routes.get('/candidacies', Passport.authenticateCandidate(), CandidacyController.index); //Lista as candidaturas do candidato logado
+
 
 
 module.exports = routes;

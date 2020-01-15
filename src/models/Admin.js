@@ -15,7 +15,7 @@ class Admin extends Model {
     }
 
     static associate(models) {
-        this.hasMany(models.Vacancy, { foreignKey: 'admin_id', as : 'vacancies'})
+        this.hasMany(models.Vacancy, { foreignKey: 'admin_id', as : 'vacancies'});
     }
 }
 
