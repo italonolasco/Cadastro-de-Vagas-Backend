@@ -4,6 +4,7 @@ const CandidateController = require('./controllers/CandidateController')
 const AdminController = require('./controllers/AdminController')
 const VacancyController = require('./controllers/VacancyController')
 const CandidacyController = require('./controllers/CandidacyController')
+const CommentController = require('./controllers/CommentController')
 
 const Auth = require('./auth');
 const Passport = require('./config/passport')
@@ -38,6 +39,7 @@ routes.post('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(
 routes.delete('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidate(), CandidacyController.delete); //Candidato deleta candidatura
 routes.get('/candidacies', Passport.authenticateCandidate(), CandidacyController.index); //Lista as candidaturas do candidato logado
 
-
+//Rotas para comentários
+routes.post('/admins/comment/:candidacy_id', Passport.authenticateAdmin(), CommentController.store) //Admin cadastra vaga
 
 module.exports = routes;

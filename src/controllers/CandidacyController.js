@@ -31,7 +31,7 @@ module.exports = {
         if(!vacancy) {
             return res.status(400).json({ error: 'Vacancy not found' }); 
         }
-
+        
         await candidate.addVacancy(vacancy)
 
         return res.json(vacancy)
