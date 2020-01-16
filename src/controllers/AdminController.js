@@ -12,7 +12,8 @@ module.exports = {
             return res.status(400).json({ error: 'Admin not found' });    
         }
         
-        const candidates = await Candidate.findAll();
+        const candidates = await Candidate.findAll({
+            include: { association: 'vacancies' }});
         
         return res.json(candidates)
     },

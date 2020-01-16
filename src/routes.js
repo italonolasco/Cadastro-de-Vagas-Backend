@@ -40,6 +40,9 @@ routes.delete('/candidates/vacancies/:vacancy_id', Passport.authenticateCandidat
 routes.get('/candidacies', Passport.authenticateCandidate(), CandidacyController.index); //Lista as candidaturas do candidato logado
 
 //Rotas para comentários
-routes.post('/admins/comment/:candidacy_id', Passport.authenticateAdmin(), CommentController.store) //Admin cadastra vaga
+routes.post('/admins/comment/:candidacy_id', Passport.authenticateAdmin(), CommentController.store) //Admin cadastra comentário
+routes.put('/admins/comment/:comment_id', Passport.authenticateAdmin(), CommentController.update) //Admin edita comentário
+routes.delete('/admins/comment/:comment_id', Passport.authenticateAdmin(), CommentController.delete) //Admin apaga comentário
+routes.get('/admins/comments', Passport.authenticateCandidate(), CommentController.index); //Admin lista seus comentários
 
 module.exports = routes;
