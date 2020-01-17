@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt-nodejs');
 const Admin = require('../models/Admin');
 const Candidate = require('../models/Candidate');
+const Candidacy = require('../models/Candidacy')
 
 module.exports = {  
     async indexCandidates(req, res) {
@@ -13,9 +14,14 @@ module.exports = {
         }
         
         const candidates = await Candidate.findAll({
-            include: { association: 'vacancies' }});
-        
-        return res.json(candidates)
+            include: { association: 'vacancies' }
+        });
+
+        const candidacies = await Candidacy.findAll();
+
+        const data = [candidates, candidacies]  
+
+        return res.json(data)
     },
     
     async store(req, res) {
