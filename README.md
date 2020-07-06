@@ -1,4 +1,4 @@
-# Sistema de Cadastro de Vagas - Nave Backend Challenget
+# Sistema de Cadastro de Vagas - Nave Backend Challenge
 
 Este projeto foi elaborado para servir a uma aplicação onde seja possível cadastrar e administrar vagas de emprego em uma empresa.
 
